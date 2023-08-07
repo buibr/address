@@ -9,4 +9,15 @@ class User {
 
 $user = User::first($id);
 
-$user->address() // collection
+$user->adresses; // Collection[Address]
+$user->addresses() // HasMany
+
+$user->hasAddress() // boolean
+
+$user->addAddress([...]) // AddressInterface
+
+$user->getAddresses(); // Collection[Address]
+
+$user->primaryAddress // Address or null
+
+```

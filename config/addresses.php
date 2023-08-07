@@ -23,6 +23,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Required
+    |--------------------------------------------------------------------------
+    |
+    | There are different needs in different applications for address params
+    | Here you can define which of attributes are required for your
+    | application as default.
+    |
+    */
+    'required' => ['line1'],
+
+    /*
+    |--------------------------------------------------------------------------
     | Country
     |--------------------------------------------------------------------------
     |

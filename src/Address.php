@@ -2,9 +2,11 @@
 
 namespace Bi\Address;
 
+use Exception;
 use League\ISO3166\ISO3166;
+use Illuminate\Database\Eloquent\Model;
 
-class Address extends \Illuminate\Database\Eloquent\Model
+class Address extends Model implements AddressInterface
 {
     /** @var array */
     protected $fillable = [
@@ -77,7 +79,7 @@ class Address extends \Illuminate\Database\Eloquent\Model
         try {
             $country = (new ISO3166())->alpha3($this->country);
             return $country['name'] ?? $this->country;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
         }
 
         return $this->country;
