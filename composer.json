@@ -1,5 +1,5 @@
 {
-  "name": "nrb/laravel-address",
+  "name": "buibr/address",
   "description": "Laravel address for contacts, companies, maps, etc.",
   "type": "library",
   "authors": [
@@ -14,15 +14,19 @@
   "require": {
     "league/iso3166": "^2.1.5"
   },
+  "require-dev": {
+    "laravel/framework": "^7.0",
+    "phpunit/phpunit": "^10.0.19"
+  },
   "autoload": {
     "psr-4": {
-      "NRB\\Address\\": ""
+      "Bi\\Address\\": "src/"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "NRB\\Address\\AddressProvider"
+        "Bi\\Address\\AddressProvider"
       ]
     }
   }
