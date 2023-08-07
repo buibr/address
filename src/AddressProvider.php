@@ -37,7 +37,7 @@ class AddressProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__ .'/addresses.php',
+            __DIR__ .'/config/addresses.php',
             'addresses'
         );
     }
