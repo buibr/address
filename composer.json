@@ -1,6 +1,6 @@
 {
   "name": "buibr/address",
-  "description": "Laravel address for contacts, companies, maps, etc.",
+  "description": "Laravel address morph to models.",
   "type": "library",
   "authors": [
     {
