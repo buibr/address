@@ -7,7 +7,7 @@ return [
     |--------------------------------------------------------------------------
     |
     */
-    'table'           => env('ADDRESS_TABLE', 'addresses'),
+    'table' => env('ADDRESS_TABLE', 'addresses'),
 
     /*
     |--------------------------------------------------------------------------
@@ -18,7 +18,7 @@ return [
     | class and this with your full class name.
     |
     */
-    'model'           => \Bi\Address\Address::class,
+    'model' => \Bi\Address\Address::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -56,6 +56,6 @@ return [
     | See Address model for fillable attributes
     |
     */
-    'name_format'     => '[door_number] [street], [city] [zip], [country_name] [country_code]',
+    'name_format' => '[door_number] [street], [city] [zip], [country_name] [country_code]',
 
 ];
