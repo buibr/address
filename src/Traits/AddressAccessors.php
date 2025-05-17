@@ -3,25 +3,41 @@
 namespace Bi\Address\Traits;
 
 use Bi\Address\Address;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
- * @param Address $primaryAddress
+ * @property Collection $addresses
+ *
+ * @property Address $primaryAddress
+ * @property Address $billingAddress
+ * @property Address $shippingAddress
  */
 trait AddressAccessors
 {
-    /**
-     * @return mixed
-     */
     public function getPrimaryAddressAttribute(): Address
     {
         if (!$this->addresses->count()) {
             return new Address();
         }
 
-        if ($primary = $this->addresses->where('primary', true)->first()) {
-            return $primary;
+        return $this->addresses->where('is_primary', true)->first() ?? $this->addresses->first();
+    }
+
+    public function getBillingAddressAttribute(): ?Address
+    {
+        if (!$this->addresses->count()) {
+            return null;
         }
 
-        return $this->addresses->first();
+        return $this->addresses->where('is_invoice', true)->first();
+    }
+
+    public function getShippingAddressAttribute(): ?Address
+    {
+        if (!$this->addresses->count()) {
+            return null;
+        }
+
+        return $this->addresses->where('is_shipping', true)->first();
     }
 }

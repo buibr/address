@@ -3,16 +3,14 @@
 namespace Bi\Address;
 
 use Exception;
-use League\ISO3166\ISO3166;
 use Illuminate\Database\Eloquent\Model;
+use League\ISO3166\ISO3166;
 
 class Address extends Model implements AddressInterface
 {
     /** @var array */
     protected $fillable = [
         'door_number',
-        'building_floor',
-        'building_number',
         'street',
         'state',
         'province',
@@ -21,20 +19,17 @@ class Address extends Model implements AddressInterface
         'city',
         'zip',
         'country',
+        'building_floor',
+        'building_number',
         'is_primary',
         'is_invoice',
         'is_shipping',
         'is_private',
-        'lat',
-        'lng',
+        'cord_lat',
+        'cord_lng',
     ];
 
-    /**
-     * @param $attributes
-     *
-     * @return bool
-     */
-    public static function isFilled($attributes)
+    public static function isFilled(array $attributes)
     {
         $fillable = (new Address())->getFillable();
 
@@ -47,34 +42,24 @@ class Address extends Model implements AddressInterface
         return FALSE;
     }
 
-    /**
-     * @return void
-     */
     protected static function boot()
     {
         parent::boot();
 
         static::creating(function (Address $address) {
 
-            if ( empty($address->country) && config('addresses.default_country')) {
+            if (empty($address->country) && config('addresses.default_country')) {
                 $address->country = config('addresses.default_country');
             }
-
         });
     }
 
-    /**
-     * @return string
-     */
-    public function getNameAttribute()
+    public function getNameAttribute(): string
     {
         return $this->resolveAddressString();
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCountryNameAttribute()
+    public function getCountryNameAttribute(): mixed
     {
         try {
             $country = (new ISO3166())->alpha3($this->country);
@@ -85,20 +70,16 @@ class Address extends Model implements AddressInterface
         return $this->country;
     }
 
-    /**
-     *
-     */
-    private function resolveAddressString()
+    private function resolveAddressString(): string
     {
         $keys = $this->getConfigKeys();
-
-
+        $keys = collect($keys)
+            ->filter(fn ($key) => $this->{$key} !== null)
+            ->map(fn ($key) =>  $this->{$key})
+            ->toArray();
     }
 
-    /**
-     * @return mixed|null
-     */
-    private function getConfigKeys()
+    private function getConfigKeys(): ?string
     {
         $attribute = config('addresses.name_format');
 

@@ -20,16 +20,17 @@ class CreateAddressesTable extends Migration
 
             $table->nullableMorphs('model');
 
-            $table->string('door_number')->nullable();
-            $table->string('building_floor');
-            $table->string('building_number')->nullable();
+            $table->string('door_number')->nullable()->index();
+            $table->string('street')->nullable()->index();
             $table->string('state')->nullable();
             $table->string('province')->nullable();
             $table->string('region')->nullable();
             $table->string('county')->nullable();
             $table->string('city')->nullable()->index();
-            $table->string('zip')->nullable();
+            $table->string('zip')->nullable()->index();
             $table->string('country')->nullable()->index();
+            $table->string('building_floor')->nullable();
+            $table->string('building_number')->nullable();
             $table->boolean('is_primary')->default(false)->index();
             $table->boolean('is_invoice')->default(false)->index();
             $table->boolean('is_shipping')->default(false)->index();

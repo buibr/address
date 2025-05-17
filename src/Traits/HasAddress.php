@@ -11,9 +11,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-/**
- * @param Collection $addresses
- */
 trait HasAddress
 {
     use AddressAccessors;
@@ -72,19 +69,11 @@ trait HasAddress
         return $this->addresses;
     }
 
-    /**
-     * @param $attributes
-     *
-     * @return mixed
-     */
-    public function updatePrimaryAddress($attributes)
+    public function updatePrimaryAddress($attributes): AddressInterface
     {
         return $this->primaryAddress->update($attributes);
     }
 
-    /**
-     * @return bool
-     */
     public function clearAddress()
     {
         return $this->addresses->each(function (Address $model) {
@@ -92,13 +81,9 @@ trait HasAddress
         });
     }
 
-    /**
-     * @param $key
-     *
-     * @return bool
-     */
     public function isAddressFilled($key)
     {
         return Address::isFilled(request()->input($key));
     }
+
 }

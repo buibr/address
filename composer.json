@@ -15,7 +15,7 @@
     "league/iso3166": "@stable"
   },
   "require-dev": {
-    "laravel/framework": "^7.0",
+    "laravel/framework": "^7.0|^8.0",
     "phpunit/phpunit": "^10.0.19"
   },
   "autoload": {
