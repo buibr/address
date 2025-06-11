@@ -4,13 +4,8 @@
 namespace Bi\Address;
 
 
-use Illuminate\Routing\Route;
-use Illuminate\Support\Collection;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\View\Compilers\BladeCompiler;
-use Spatie\Permission\Contracts\Role as RoleContract;
-use Spatie\Permission\Contracts\Permission as PermissionContract;
 
 class AddressProvider extends ServiceProvider
 {
@@ -22,7 +17,7 @@ class AddressProvider extends ServiceProvider
     {
         if (function_exists('config_path')) {
             $this->publishes([
-                __DIR__ .'/../config/addresses.php' => config_path('addresses.php')
+                __DIR__ . '/../config/addresses.php' => config_path('addresses.php')
             ], 'config');
 
             $this->publishes([
@@ -30,14 +25,14 @@ class AddressProvider extends ServiceProvider
             ], 'migrations');
         }
 
-        $this->loadMigrationsFrom( __DIR__ . '/Migrations/');
+        $this->loadMigrationsFrom(__DIR__ . '/Migrations/');
 
     }
 
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__ .'/../config/addresses.php',
+            __DIR__ . '/../config/addresses.php',
             'addresses'
         );
     }

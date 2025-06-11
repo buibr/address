@@ -6,56 +6,63 @@ return [
     | Table
     |--------------------------------------------------------------------------
     |
+    | This option defines the database table name used to store address records.
+    | Set this value before running your first migration. Do not change it after
+    | migrations have been run, as it may break existing data or references.
+    | You can override the default table name by setting the ADDRESS_TABLE
+    | environment variable, or it will default to 'addresses'.
     */
-    'table' => env('ADDRESS_TABLE', 'addresses'),
+    'table' => env('BI_ADDRESSES_TABLE', 'addresses'),
 
     /*
     |--------------------------------------------------------------------------
-    | Address model
+    | Address Model
     |--------------------------------------------------------------------------
     |
-    | You can create your own methods by extending this \Bi\Address\Address
-    | class and this with your full class name.
+    | To customize address behavior, extend the \Bi\Address\Address class
+    | with your own implementation and specify its full class name here.
     |
     */
     'model' => \Bi\Address\Address::class,
 
     /*
     |--------------------------------------------------------------------------
-    | Required
+    | Required Address Fields
     |--------------------------------------------------------------------------
     |
-    | There are different needs in different applications for address params
-    | Here you can define which of attributes are required for your
-    | application as default.
+    | Different applications may require different address fields.
+    | Specify here which attributes should be required by default
+    | for your application.
     |
     */
     'required' => ['line1'],
 
     /*
     |--------------------------------------------------------------------------
-    | Country
+    | Default Country
     |--------------------------------------------------------------------------
     |
-    | Sometimes we need to create something to specific countries
-    | If this is set, will be auto attached on create.
-    | see: https://github.com/thephpleague/iso3166
+    | If you want all new addresses to automatically have a country set, specify
+    | the default country code here (ISO 3166-1 alpha-2).
+    | For a list of codes, see: https://github.com/thephpleague/iso3166
     |
     */
-    'default_country' => 'AL',
+    'default_country' => env('BI_ADDRESSES_DEFAULT_COUNTRY', 'AL'),
 
     /*
     |--------------------------------------------------------------------------
-    | Format
+    | Address Display Format
     |--------------------------------------------------------------------------
     |
-    | By default this package has implemented name attribute as mutator
-    | You can modify by extending the base class and the method or
-    | setup here the format you want to be returned
+    | This option defines how the address will be formatted when accessed via
+    | the "name" attribute on the Address model. You can customize the format
+    | string using any fillable attribute as a placeholder, wrapped in square
+    | brackets (e.g. [city], [zip], [country_name]).
     |
-    | See Address model for fillable attributes
+    | To change the formatting logic, you may also extend the base Address
+    | class and override the relevant method.
     |
     */
-    'name_format' => '[door_number] [street], [city] [zip], [country_name] [country_code]',
+    'name_format' => env('BI_ADDRESSES_NAME_FORMAT', '[door_number] [street], [city] [zip], [country_name] [country_code]'),
 
 ];

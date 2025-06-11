@@ -6,7 +6,6 @@ use Exception;
 use Illuminate\Database\Eloquent\Model;
 use League\ISO3166\ISO3166;
 
-
 /**
  * @property int $id
  * @property string $door_number
@@ -26,8 +25,6 @@ use League\ISO3166\ISO3166;
  * @property bool $is_private
  * @property string $cord_lat
  * @property string $cord_lng
- * @property string $created_at
- * @property string $updated_at
  *
  * @property string $name;
  * @property string $country_name;
@@ -68,19 +65,17 @@ class Address extends Model implements AddressInterface
 
         foreach ($fillable as $attr) {
             if (isset($attributes[$attr]) && !empty($attributes[$attr])) {
-                return TRUE;
+                return true;
             }
         }
 
-        return FALSE;
+        return false;
     }
 
     protected static function boot()
     {
         parent::boot();
-
         static::creating(function (Address $address) {
-
             if (empty($address->country) && config('addresses.default_country')) {
                 $address->country = config('addresses.default_country');
             }
@@ -92,8 +87,7 @@ class Address extends Model implements AddressInterface
         $format = config('addresses.name_format');
 
         // Define the mapping of placeholders to actual values
-        $replacements = [
-            '[door_number]' => $this->door_number ?? '',
+        $replacements = ['[door_number]' => $this->door_number ?? '',
             '[street]' => $this->street ?? '',
             '[line1]' => $this->line1 ?? '',
             '[line2]' => $this->line2 ?? '',
@@ -131,14 +125,5 @@ class Address extends Model implements AddressInterface
         }
 
         return $this->country;
-    }
-
-    private function getFormatConfigKeys(): ?string
-    {
-        $attribute = config('addresses.name_format');
-
-        preg_match_all('/\[(.*?)\]/', $attribute, $keys);
-
-        return $keys[1] ?? null;
     }
 }
